@@ -79,7 +79,14 @@ public class TimetableTest {
         timetable.addNewTrainingSession(singleTrainingSession);
 
         //Проверить, что за понедельник в 13:00 вернулось одно занятие
+        ArrayList<String> monday1300 = timetable.getTrainingSessionsForDayAndTime(
+                DayOfWeek.MONDAY, singleTrainingSession.getTimeOfDay());
+        Assertions.assertEquals(1,
+                monday1300.size());
         //Проверить, что за понедельник в 14:00 не вернулось занятий
+        ArrayList<String> monday1400 = timetable.getTrainingSessionsForDayAndTime(
+                DayOfWeek.MONDAY, new TimeOfDay(14, 0));
+        Assertions.assertNull(monday1400);
     }
 
 }
