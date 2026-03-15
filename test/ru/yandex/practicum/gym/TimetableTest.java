@@ -19,7 +19,12 @@ public class TimetableTest {
         timetable.addNewTrainingSession(singleTrainingSession);
 
         //Проверить, что за понедельник вернулось одно занятие
+        TreeMap<TimeOfDay, ArrayList<String>> mondaySession = timetable.getTrainingSessionsForDay(DayOfWeek.MONDAY);
+        Assertions.assertEquals(1, mondaySession.size());
         //Проверить, что за вторник не вернулось занятий
+        TreeMap<TimeOfDay, ArrayList<String>> tuesdaySession = timetable.getTrainingSessionsForDay(DayOfWeek.TUESDAY);
+        Assertions.assertNull(tuesdaySession);
+
     }
 
     @Test
