@@ -19,11 +19,11 @@ public class TimetableTest {
         timetable.addNewTrainingSession(singleTrainingSession);
 
         //Проверить, что за понедельник вернулось одно занятие
-        TreeMap<TimeOfDay, List<String>> mondaySession = timetable.getTrainingSessionsForDay(DayOfWeek.MONDAY);
+        Map<TimeOfDay, List<String>> mondaySession = timetable.getTrainingSessionsForDay(DayOfWeek.MONDAY);
         Assertions.assertEquals(1, mondaySession.size());
         //Проверить, что за вторник не вернулось занятий
-        TreeMap<TimeOfDay, List<String>> tuesdaySession = timetable.getTrainingSessionsForDay(DayOfWeek.TUESDAY);
-        Assertions.assertNull(tuesdaySession);
+        Map<TimeOfDay, List<String>> tuesdaySession = timetable.getTrainingSessionsForDay(DayOfWeek.TUESDAY);
+        Assertions.assertTrue(tuesdaySession.isEmpty());
 
     }
 
@@ -52,19 +52,19 @@ public class TimetableTest {
         timetable.addNewTrainingSession(saturdayChildTrainingSession);
 
         // Проверить, что за понедельник вернулось одно занятие
-        TreeMap<TimeOfDay, List<String>> mondaySession = timetable.getTrainingSessionsForDay(DayOfWeek.MONDAY);
+        Map<TimeOfDay, List<String>> mondaySession = timetable.getTrainingSessionsForDay(DayOfWeek.MONDAY);
         Assertions.assertEquals(1, mondaySession.size());
 
         // Проверить, что за четверг вернулось два занятия в правильном порядке: сначала в 13:00, потом в 20:00
-        TreeMap<TimeOfDay, List<String>> thursdaySession = timetable.getTrainingSessionsForDay(DayOfWeek.THURSDAY);
+        Map<TimeOfDay, List<String>> thursdaySession = timetable.getTrainingSessionsForDay(DayOfWeek.THURSDAY);
         Assertions.assertEquals(2, thursdaySession.size());
 
         ArrayList<TimeOfDay> sortedTimes = new ArrayList<>(thursdaySession.keySet());
         Assertions.assertEquals(new TimeOfDay(13, 0), sortedTimes.get(0));
         Assertions.assertEquals(new TimeOfDay(20, 0), sortedTimes.get(1));
         // Проверить, что за вторник не вернулось занятий
-        TreeMap<TimeOfDay, List<String>> tuesdaySession = timetable.getTrainingSessionsForDay(DayOfWeek.TUESDAY);
-        Assertions.assertNull(tuesdaySession);
+        Map<TimeOfDay, List<String>> tuesdaySession = timetable.getTrainingSessionsForDay(DayOfWeek.TUESDAY);
+        Assertions.assertTrue(tuesdaySession.isEmpty());
     }
 
     @Test
