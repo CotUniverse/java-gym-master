@@ -89,4 +89,30 @@ public class TimetableTest {
         Assertions.assertNull(monday1400);
     }
 
+    @Test
+    void testGetCountByCoaches() {
+        Timetable timetable = new Timetable();
+
+        Group group = new Group("Акробатика для детей", Age.CHILD, 60);
+        Coach coach = new Coach("Васильев", "Николай", "Сергеевич");
+        Coach coach2 = new Coach("Скворцов", "Владимир", "Сергеевич");
+        TrainingSession singleTrainingSession = new TrainingSession(group, coach,
+                DayOfWeek.MONDAY, new TimeOfDay(13, 0));
+        TrainingSession singleTrainingSession1 = new TrainingSession(group, coach,
+                DayOfWeek.TUESDAY, new TimeOfDay(15, 0));
+        TrainingSession singleTrainingSession2 = new TrainingSession(group, coach2,
+                DayOfWeek.MONDAY, new TimeOfDay(13, 0));
+
+
+        timetable.addNewTrainingSession(singleTrainingSession);
+        timetable.addNewTrainingSession(singleTrainingSession1);
+        timetable.addNewTrainingSession(singleTrainingSession2);
+
+        ArrayList<CounterOfTrainings> result = timetable.getCountByCoaches();
+
+        Assertions.assertNotNull(result);
+        Assertions.assertEquals(2, result.size());
+        Assertions.assertTrue(result.get(0).toString().contains("Васильев Николай Сергеевич"));
+    }
+
 }
