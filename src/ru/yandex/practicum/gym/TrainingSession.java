@@ -33,4 +33,12 @@ public class TrainingSession {
     public TimeOfDay getTimeOfDay() {
         return timeOfDay;
     }
+
+    @Override
+    public String toString() {
+        return "Тренировка " + group.getTitle() + " Ф.И.О "
+                + coach.getSurname() + " "
+                + coach.getName() + " "
+                + coach.getMiddleName();
+    }
 }
