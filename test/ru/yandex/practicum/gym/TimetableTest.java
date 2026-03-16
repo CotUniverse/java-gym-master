@@ -19,10 +19,10 @@ public class TimetableTest {
         timetable.addNewTrainingSession(singleTrainingSession);
 
         //Проверить, что за понедельник вернулось одно занятие
-        Map<TimeOfDay, List<String>> mondaySession = timetable.getTrainingSessionsForDay(DayOfWeek.MONDAY);
+        Map<TimeOfDay, List<TrainingSession>> mondaySession = timetable.getTrainingSessionsForDay(DayOfWeek.MONDAY);
         Assertions.assertEquals(1, mondaySession.size());
         //Проверить, что за вторник не вернулось занятий
-        Map<TimeOfDay, List<String>> tuesdaySession = timetable.getTrainingSessionsForDay(DayOfWeek.TUESDAY);
+        Map<TimeOfDay, List<TrainingSession>> tuesdaySession = timetable.getTrainingSessionsForDay(DayOfWeek.TUESDAY);
         Assertions.assertTrue(tuesdaySession.isEmpty());
 
     }
@@ -52,18 +52,18 @@ public class TimetableTest {
         timetable.addNewTrainingSession(saturdayChildTrainingSession);
 
         // Проверить, что за понедельник вернулось одно занятие
-        Map<TimeOfDay, List<String>> mondaySession = timetable.getTrainingSessionsForDay(DayOfWeek.MONDAY);
+        Map<TimeOfDay, List<TrainingSession>> mondaySession = timetable.getTrainingSessionsForDay(DayOfWeek.MONDAY);
         Assertions.assertEquals(1, mondaySession.size());
 
         // Проверить, что за четверг вернулось два занятия в правильном порядке: сначала в 13:00, потом в 20:00
-        Map<TimeOfDay, List<String>> thursdaySession = timetable.getTrainingSessionsForDay(DayOfWeek.THURSDAY);
+        Map<TimeOfDay, List<TrainingSession>> thursdaySession = timetable.getTrainingSessionsForDay(DayOfWeek.THURSDAY);
         Assertions.assertEquals(2, thursdaySession.size());
 
         ArrayList<TimeOfDay> sortedTimes = new ArrayList<>(thursdaySession.keySet());
         Assertions.assertEquals(new TimeOfDay(13, 0), sortedTimes.get(0));
         Assertions.assertEquals(new TimeOfDay(20, 0), sortedTimes.get(1));
         // Проверить, что за вторник не вернулось занятий
-        Map<TimeOfDay, List<String>> tuesdaySession = timetable.getTrainingSessionsForDay(DayOfWeek.TUESDAY);
+        Map<TimeOfDay, List<TrainingSession>> tuesdaySession = timetable.getTrainingSessionsForDay(DayOfWeek.TUESDAY);
         Assertions.assertTrue(tuesdaySession.isEmpty());
     }
 
@@ -79,12 +79,11 @@ public class TimetableTest {
         timetable.addNewTrainingSession(singleTrainingSession);
 
         //Проверить, что за понедельник в 13:00 вернулось одно занятие
-        List<String> monday1300 = timetable.getTrainingSessionsForDayAndTime(
+        List<TrainingSession> monday1300 = timetable.getTrainingSessionsForDayAndTime(
                 DayOfWeek.MONDAY, singleTrainingSession.getTimeOfDay());
-        Assertions.assertEquals(1,
-                monday1300.size());
+        Assertions.assertEquals(2, monday1300.size());
         //Проверить, что за понедельник в 14:00 не вернулось занятий
-        List<String> monday1400 = timetable.getTrainingSessionsForDayAndTime(
+        List<TrainingSession> monday1400 = timetable.getTrainingSessionsForDayAndTime(
                 DayOfWeek.MONDAY, new TimeOfDay(14, 0));
         Assertions.assertNull(monday1400);
     }
