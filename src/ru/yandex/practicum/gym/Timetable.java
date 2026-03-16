@@ -6,7 +6,7 @@ public class Timetable {
 
     private final Map<DayOfWeek, TreeMap<TimeOfDay, List<TrainingSession>>> timetable = new LinkedHashMap<>();
     private final Map<Coach, Integer> countTrainingsTable = new HashMap<>();
-    List<CounterOfTrainings> counterList = new ArrayList<>();
+
 
     public void addNewTrainingSession(TrainingSession trainingSession) {
         DayOfWeek day = trainingSession.getDayOfWeek();
@@ -30,6 +30,8 @@ public class Timetable {
     }
 
     public List<CounterOfTrainings> getCountByCoaches() {
+        List<CounterOfTrainings> counterList = new ArrayList<>();
+
         for (Map.Entry<Coach, Integer> entry : countTrainingsForCoaches().entrySet()) {
             counterList.add(new CounterOfTrainings(entry.getKey(), entry.getValue()));
         }
